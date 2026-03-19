@@ -7,11 +7,13 @@ const reservationSchema = new mongoose.Schema({
     },
     clientName: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     boatName: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     startDate: {
         type: Date,
@@ -21,7 +23,6 @@ const reservationSchema = new mongoose.Schema({
         type: Date,
         required: true
     }
-
 
 });
 
