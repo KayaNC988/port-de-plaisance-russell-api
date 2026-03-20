@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port de plaisance Russell</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <main class="container">
+        <section class="card">
+    <h1>Bienvenue sur l'application du port de plaisance Russell</h1>
+    <p>Veuillez vous connecter pour accéder au tableau de bord.</p>
+
+    <form action="/login" method="POST" class="login-form">
+            
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+
+            <button type="submit">Se connecter</button>
+    </form>
+    
+        <div class="links">
+        <a href="/dashboard">Accéder au tableau de bord</a>
+        </div>
+
+    </section>
+    </main>
+</body>
+</html>

@@ -37,10 +37,10 @@ router.post('/', async (req, res) => {
 
     const savedUser = await newUser.save();
 
-    const userReponse = savedUser.toObject();
-    delete userReponse.password;
+    const userResponse = savedUser.toObject();
+    delete userResponse.password;
 
-    res.status(201).json(userReponse);
+    res.status(201).json(userResponse);
 }   catch (error) {
     res.status(400).json({ message: error.message });
 }
@@ -69,10 +69,10 @@ router.put('/:email', async (req, res) => {
 
     const updatedUser = await user.save();
 
-    const userReponse = updatedUser.toObject();
-    delete userReponse.password;
+    const userResponse = updatedUser.toObject();
+    delete userResponse.password;
 
-    res.json(userReponse);
+    res.json(userResponse);
 }   catch (error) {
     res.status(400).json({ message: error.message });
 }

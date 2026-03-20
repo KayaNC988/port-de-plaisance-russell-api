@@ -4,6 +4,7 @@ const connectDB = require('./config/db');
 const session = require('express-session');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
+const path = require('path');
 
 
 dotenv.config();
@@ -12,17 +13,17 @@ initializePassport();
 
 const app = express();
 
-
-const indexRoutes = require('./routes/index');
-const catwaysRoutes = require('./routes/catways');
-const reservationsRoutes = require('./routes/reservations');
-const usersRoutes = require('./routes/users');
-const authRoutes = require('./routes/auth');
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 app.use(session({
-    secret: 'monsecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
@@ -30,11 +31,33 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRoutes);
+
+const catwaysRoutes = require('./routes/catways');
+const reservationsRoutes = require('./routes/reservations');
+const usersRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
+
+
 app.use('/catways', catwaysRoutes);
 app.use('/catways/:id/reservations', reservationsRoutes);
 app.use('/users', usersRoutes);
 app.use('/', authRoutes);
+
+
+app.get('/', (req, res) => {
+    res.render('index');
+});
+
+app.get('/dashboard', (req, res) => {
+    if(!req.isAuthenticated()) {
+        return res.redirect('/');
+    }
+
+    res.render('dashboard', {
+        user: req.user,
+        today: new Date().toLocaleDateString('fr-FR')
+    });
+});
 
 
 const PORT = process.env.PORT || 3000;
