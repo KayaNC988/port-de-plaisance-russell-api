@@ -86,3 +86,39 @@ button:hover {
 .links a:hover {
     text-decoration: underline;
 }
+
+.btn-add {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background-color: #1d4ed8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-add:hover {
+    background-color: #1e40af;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input,
+select,
+textarea {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 120px;
+
+}

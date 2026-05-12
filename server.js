@@ -5,6 +5,9 @@ const session = require('express-session');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
 const path = require('path');
+const methodOverride = require('method-override');
+
+
 
 
 dotenv.config();
@@ -18,6 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -44,6 +48,7 @@ app.use('/users', usersRoutes);
 app.use('/', authRoutes);
 
 
+
 app.get('/', (req, res) => {
     res.render('index');
 });
@@ -59,8 +64,33 @@ app.get('/dashboard', (req, res) => {
     });
 });
 
+app.get('/catways-page', async (req, res) => {
+    try {
+        const Catway = require('./models/Catway');
+        const catways = await Catway.find();
+        res.render('catways', { catways 
+ });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur serveur');
+    }
+});
+
+app.post('/catways/:id/delete', async (req, res) => {
+
+    try {   
+        const Catway = require('./models/Catway');
+        await Catway.findOneAndDelete({ catwayNumber: req.params.id });
+        res.redirect('/catways-page');
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }   
+});
+
 
 const PORT = process.env.PORT || 3000;
+
+
 
 app.listen(PORT, () => {
     console.log(`Serveur lancé sur http://localhost:${PORT}`);

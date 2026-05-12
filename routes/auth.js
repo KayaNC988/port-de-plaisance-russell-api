@@ -6,26 +6,20 @@ const router = express.Router();
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', (error, user, info) => {
     if (error) {
-    return res.status(500).json({ message: error.message });
+    return res.redirect('/');
 }
     if (!user) {
-    return res.status(401).json({ message: info.message || 'Connexion refusée' });
+    return res.redirect('/');
 }
     req.logIn(user, (error) => {
     if (error) {
-    return res.status(500).json({ message: error.message });
+    return res.redirect('/');
 }
-    res.json({
-        message: 'Connexion réussie',
-        user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role
-}
+    return res.redirect('/dashboard');
 });
-});
+
  })(req, res, next);
+
 });
 
 router.get('/logout', (req, res) => {

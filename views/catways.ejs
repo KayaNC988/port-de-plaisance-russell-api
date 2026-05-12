@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catways</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <main class="container">
+        <section class="card">
+            <h1>Liste des catways</h1>
+
+            <a href="/catways/new" class="btn-add">Ajouter un catway</a>
+            <% catways.forEach(catway => { %>
+
+
+                <div class="catway-item">
+                    <h3>Catway numéro <%= catway.catwayNumber %></h3>
+                    <p>
+                        type :
+                        <strong><%= catway.catwayType %></strong>
+                    </p>
+
+                    <p>
+                        Etat :
+                        <strong><%= catway.catwayState %></strong>
+                    </p>
+
+                <form action="/catways/<%= catway.catwayNumber %>/delete" method="POST">
+                    <button type="submit" class="btn-add">Supprimer</button>
+                </form>
+                </div>
+            <% }) %>
+
+            <a href="/dashboard" class="back-btn">
+                Retour au dashboard
+            </a>
+           
+        </section>
+    </main>
+    
+</body>
+</html>

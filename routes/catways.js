@@ -18,6 +18,10 @@ router.get('/', async (req, res) => {
 });
 
 
+router.get('/new', (req, res) => {
+    res.render('new-catway');
+});
+
 router.get('/:id', async (req, res) => {
     try {
         const catway = await Catway.findOne({ catwayNumber: req.params.id });
@@ -47,7 +51,7 @@ router.post('/', async (req, res) => {
 
         const savedCatway = await newCatway.save();
 
-        res.status(201).json(savedCatway);
+        res.redirect('/catways-page');
     } catch (error) {
         res.status(400).json({ message: error.message });
 
@@ -74,24 +78,22 @@ router.put('/:id', async (req, res) => {
 
 });
 
-router.delete('/:id', async (req, res) => {
+
+
+router.post('/:id/delete', async (req, res) => {
 
     try {
-        const deletedCatway = await Catway.findOneAndDelete({
-            catwayNumber: req.params.id
+        await Catway.findOneAndDelete({ 
+            catwayNumber: req.params.id 
         });
-        
-        if (!deletedCatway) {
-            return res.status(404).json({ message: 'Catway non trouvé' });
+        res.redirect('/catways-page');
 
-        }
-
-        res.json({ message: 'Catway supprimé', deletedCatway });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ 
+            message: error.message });
     }
-
 });
+
 
 
 
