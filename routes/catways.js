@@ -22,6 +22,48 @@ router.get('/new', (req, res) => {
     res.render('new-catway');
 });
 
+router.get('/:id/edit', async (req, res) => {
+    try {
+        const catway = await Catway.findOne({ catwayNumber: req.params.id });
+        if (!catway) {
+            return res.status(404).json({ message: 'Catway non trouvé' });
+        }
+        res.render('edit-catway', { catway });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+router.post('/:id/edit', async (req, res) => {
+    try {
+        await Catway.findOneAndUpdate(
+            { catwayNumber: req.params.id },
+                            {
+                            catwayType: req.body.catwayType,
+                            catwayState: req.body.catwayState
+                            }
+);
+res.redirect('/catways-page');
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+    });     
+
+router.get('/:id/reservations', async (req, res) => {
+    try {
+        const reservations = await Reservation.find({ catwayNumber: req.params.id });
+        res.render('reservations', { reservations,
+                catwayNumber: req.params.id
+    });
+    } catch (error) {
+        res.status(500).json({ message: error.message });   
+        }
+                                     
+
+         });  
+
+
 router.get('/:id', async (req, res) => {
     try {
         const catway = await Catway.findOne({ catwayNumber: req.params.id });

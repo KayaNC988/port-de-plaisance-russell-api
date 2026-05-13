@@ -11,10 +11,16 @@ router.get('/', async (req, res) => {
     const reservations = await Reservation.find({
      catwayNumber: Number(req.params.id)
 });
-     res.json(reservations);
+     res.render('reservations', { reservations,
+     catwayNumber: req.params.id
+}); 
 }    catch (error) {
      res.status(500).json({ message: error.message });
 }
+});
+
+router.get('/new', (req, res) => {
+    res.render('new-reservation', { catwayNumber: req.params.id });
 });
 
 router.get('/:idReservation', async (req, res) => {
@@ -33,6 +39,17 @@ router.get('/:idReservation', async (req, res) => {
 }
 });
 
+router.post('/:idReservation', async (req, res) => {
+    try {
+    const reservation = await Reservation.findOne({
+    _id: req.params.idReservation,
+    catwayNumber: Number(req.params.id)
+});
+res.redirect(`/catways/${req.params.id}/reservations/${req.params.idReservation}`);
+}    catch (error) {
+    res.status(500).json({ message: error.message });
+}   
+});
 
 
 
@@ -46,9 +63,10 @@ router.post('/', async (req, res) => {
         startDate: req.body.startDate,
         endDate: req.body.endDate
 });
+         await newReservation.save();
 
 const savedReservation = await newReservation.save();
-    res.status(201).json(savedReservation);
+    res.redirect(`/catways/${req.params.id}/reservations/${savedReservation._id}`);
 }   catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -85,20 +103,22 @@ router.put('/:idReservation', async (req, res) => {
 }
 });
 
-router.delete('/:idReservation', async (req, res) => {
-    try {
-    const deletedReservation = await Reservation.findOneAndDelete({
-    _id: req.params.idReservation,
-    catwayNumber: Number(req.params.id)
-});
 
-    if (!deletedReservation) {
-    return res.status(404).json({ message: 'Réservation non trouvée' });
-}
-    res.json({ message: 'Réservation supprimée', deletedReservation });
-}   catch (error) {
-    res.status(500).json({ message: error.message });
-}
+router.post('/:idReservation/delete', async (req, res) => {
+    try {
+        const deletedReservation = await Reservation.findOneAndDelete({
+            _id: req.params.idReservation,
+            catwayNumber: Number(req.params.id)
+        });
+
+        if (!deletedReservation) {
+            return res.status(404).json({ message: 'Réservation non trouvée' });
+        }
+
+        res.redirect(`/catways/${req.params.id}/reservations`);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 module.exports = router;

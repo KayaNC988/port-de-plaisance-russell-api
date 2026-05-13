@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier le catway</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <main class="container">
+
+        <section class="card">
+            <h1>Modifier le catway</h1>
+            <form action="/catways/<%= catway.catwayNumber %>/edit" method="POST">
+
+
+                <label>Type du catway</label>
+                <input type="text"
+                name="catwayType"
+                value="<%= catway.catwayType %>" required>
+                
+               <label>Etat du catway</label>
+                <textarea name="catwayState"><%= catway.catwayState %></textarea>
+
+                <button type="submit" class="btn-edit">Enregistrer les modifications</button>
+            </form>
+        </section>
+    </main>
+    
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservations</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <main class="container">
+        <section class="card">
+            <h1>Réservations pour le catway numéro <%= catwayNumber %></h1>
+                <a href="/catways/<%= catwayNumber %>/reservations/new" class="btn btn-primary">Créer une nouvelle réservation</a>
+
+            <% if (reservations.length === 0) { %>
+                <p>Aucune réservation trouvée pour ce catway.</p>
+            <% } else { %>
+                <ul class="reservation-list">
+                    <% reservations.forEach(reservation => { %>
+                        <li class="reservation-item">
+                            <p><strong>Nom du bateau:</strong> <%= reservation.boatName %></p>
+                            <p><strong>Date de début:</strong> <%= reservation.startDate.toLocaleDateString() %></p>
+                            <p><strong>Date de fin:</strong> <%= reservation.endDate.toLocaleDateString() %></p>
+                        </li>
+                        <div class="actions">
+                       <a href="/api/reservations/<%= reservation._id %>/edit" class="btn btn-edit">Modifier</a>
+
+                            <form action="/catways/<%= catwayNumber %>/reservations/<%= reservation._id %>/delete" method="POST">
+                                <button type="submit" class="btn btn-delete">Supprimer</button>
+                            </form>
+                        </div>
+                    <% }) %>
+                </ul>
+            <% } %>
+
+            <a href="/dashboard" class="back-btn">
+                Retour au dashboard
+            </a>
+        </section>
+    </main>
+    
+</body>
+</html>

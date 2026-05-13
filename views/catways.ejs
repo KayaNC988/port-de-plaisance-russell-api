@@ -29,8 +29,13 @@
                         <strong><%= catway.catwayState %></strong>
                     </p>
 
-                <form action="/catways/<%= catway.catwayNumber %>/delete" method="POST">
-                    <button type="submit" class="btn-add">Supprimer</button>
+                <div class="actions">
+                    <a href="/catways/<%= catway.catwayNumber %>/edit" class="btn-edit">Modifier</a>
+                    
+                        <form action="/catways/<%= catway.catwayNumber %>/delete" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?');">
+                        <button type="submit" class="btn-delete">Supprimer</button>
+                    </form>
+                </div>
                 </form>
                 </div>
             <% }) %>

@@ -122,3 +122,28 @@ textarea {
     min-height: 120px;
 
 }
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-edit,
+.btn-delete {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6%;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-edit {
+    background-color: #1d4ed8;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}

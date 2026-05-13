@@ -42,8 +42,8 @@ const usersRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 
 
+app.use('/api/reservations', reservationsRoutes);
 app.use('/catways', catwaysRoutes);
-app.use('/catways/:id/reservations', reservationsRoutes);
 app.use('/users', usersRoutes);
 app.use('/', authRoutes);
 
