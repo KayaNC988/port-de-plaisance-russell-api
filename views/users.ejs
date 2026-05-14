@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilisateurs</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <div class="form-container">
+        <div class="form-card">
+
+            <h1>Liste des utilisateurs</h1>
+
+            <a href="/users/new" class="btn-add">
+                Ajouter un utilisateur
+            </a>
+
+            <div class="catway-list">
+          <div class="users-list">                                   
+                <% users.forEach(user => { %>
+
+                    <div class="catway-card">
+
+                        <h3><%= user.username %></h3>
+
+                        <p>
+                            <strong>Email :</strong>
+                            <%= user.email %>
+                        </p>
+
+                        <div class="card-actions">
+
+                            <a href="/users/<%= user.email %>/edit" class="btn-edit">
+                                Modifier
+                            </a>
+
+                            <form action="/users/<%= user.email %>/delete" method="POST">
+                                <button type="submit" class="btn-delete">
+                                    Supprimer
+                                </button>
+                            </form>
+
+                        </div>
+
+                    </div>
+          
+                <% }) %>
+          </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

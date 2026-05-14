@@ -3,6 +3,15 @@ const router = express.Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
+router.get('/list', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.render('users', { users });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 router.get('/', async (req, res) => {
     try {
@@ -11,6 +20,42 @@ router.get('/', async (req, res) => {
 }   catch (error) {
     res.status(500).json({ message: error.message });
 }
+});
+
+router.get('/new', (req, res) => {
+    res.render('new-user');
+});
+
+router.get('/:email/edit', async (req, res) => {
+    try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+    return res.status(404).json({ message: 'Utilisateur non trouvé' });
+}
+    res.render('edit-user', { user });
+}   catch (error) {
+    res.status(500).json({ message: error.message });
+}
+});
+
+router.post('/:email/edit', async (req, res) => {
+    try {
+    const user = await User.findOne({ email: req.params.email });
+
+    if (!user) {
+    return res.status(404).json({ message: 'Utilisateur non trouvé' 
+});
+}
+username = req.body.username;
+user.email = req.body.email;
+if (req.body.password) {
+    user.password = await bcrypt.hash(req.body.password, 10);
+}   
+    await user.save();
+    res.redirect('/users/list');    
+}   catch (error) {
+    res.status(400).json({ message: error.message });
+}   
 });
 
 
@@ -28,6 +73,7 @@ router.get('/:email', async (req, res) => {
 });
 
 
+
 router.post('/', async (req, res) => {
     try {
     const newUser = new User({
@@ -41,7 +87,7 @@ router.post('/', async (req, res) => {
     const userResponse = savedUser.toObject();
     delete userResponse.password;
 
-    res.status(201).json(userResponse);
+    res.redirect('/users/list');
 }   catch (error) {
     res.status(400).json({ message: error.message });
 }
@@ -93,6 +139,23 @@ router.delete('/:email', async (req, res) => {
     res.status(500).json({ message: error.message });
 }
 });
+
+router.post('/:email/delete', async (req, res) => {
+    try {
+    const deletedUser = await User.findOneAndDelete({
+    email: req.params.email
+});
+    if (!deletedUser) {
+    return res.status(404).json({ message: 'Utilisateur non trouvé' 
+
+    });
+}
+    res.redirect('/users/list');
+}   catch (error) {
+    res.status(500).json({ message: error.message });
+}
+}); 
+
 
 
 

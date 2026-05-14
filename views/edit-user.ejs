@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un utilisateur</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <div class="form-container">
+        <div class="form-card">
+
+            <h1>Modifier l'utilisateur</h1>
+
+            <form action="/users/<%= user.email %>/edit" method="POST">
+
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value="<%= user.username %>"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="<%= user.email %>"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Nouveau mot de passe</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Laisser vide pour ne pas modifier"
+                    >
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    Modifier l'utilisateur
+                </button>
+
+            </form>
+
+            <a href="/users/list">Retour aux utilisateurs</a>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -7,23 +7,62 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <%- include('partials/navbar') %>
 
-    <main class="container">
+<div class="form-container">
+    <div class="form-card">
 
-        <section class="card">
-            <h1>Modifier le catway</h1>
-            <form action="/catways/<%= catway.catwayNumber %>/edit" method="POST">
+        <h1>Modifier un catway</h1>
 
+        <form action="/catways/<%= catway._id %>?_method=PUT" method="POST">
 
-                <label>Type du catway</label>
-                <input type="text"
-                name="catwayType"
-                value="<%= catway.catwayType %>" required>
-                
-               <label>Etat du catway</label>
-                <textarea name="catwayState"><%= catway.catwayState %></textarea>
+            <div class="form-group">
+                <label for="catwayNumber">Numéro du catway</label>
+                <input
+                    type="number"
+                    id="catwayNumber"
+                    name="catwayNumber"
+                    value="<%= catway.catwayNumber %>"
+                    required
+                >
+            </div>
 
-                <button type="submit" class="btn-edit">Enregistrer les modifications</button>
+            <div class="form-group">
+                <label for="type">Type du catway</label>
+
+                <select id="type" name="type" required>
+                    <option value="Short" <%= catway.type === 'Short' ? 'selected' : '' %>>
+                        Short
+                    </option>
+
+                    <option value="Long" <%= catway.type === 'Long' ? 'selected' : '' %>>
+                        Long
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="catwayState">État du catway</label>
+
+                <textarea
+                    id="catwayState"
+                    name="catwayState"
+                    required
+                ><%= catway.catwayState %></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Modifier le catway
+            </button>
+
+        </form>
+
+        <a href="/catways/list">Retour aux catways</a>
+
+    </div>
+</div>
+
+              
             </form>
         </section>
     </main>

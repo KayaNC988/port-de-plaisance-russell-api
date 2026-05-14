@@ -17,6 +17,15 @@ router.get('/', async (req, res) => {
 
 });
 
+router.get('/list', async (req, res) => {
+    try {
+        const catways = await Catway.find();
+        res.render('catways', { catways });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }   
+});
+
 
 router.get('/new', (req, res) => {
     res.render('new-catway');

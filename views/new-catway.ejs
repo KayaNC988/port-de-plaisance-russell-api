@@ -8,24 +8,41 @@
 
 </head>
 <body>
+    <%- include('partials/navbar') %>
 
-    <main class="container">
+<div class="form-container">
+    <div class="form-card">
+
         <h1>Ajouter un catway</h1>
+
         <form action="/catways" method="POST">
 
-            <label>Numéro du catway</label>
-            <input type="text" name="catwayNumber" required>
+            <div class="form-group">
+                <label for="catwayNumber">Numéro du catway</label>
+                <input type="number" id="catwayNumber" name="catwayNumber" required>
+            </div>
 
-            <label>Type du catway</label>
-            <select name="catwayType">
-                <option value="short">Short</option>
-                <option value="long">Long</option>
-            </select>
+            <div class="form-group">
+                <label for="type">Type du catway</label>
+                <select id="type" name="type" required>
+                    <option value="Short">Short</option>
+                    <option value="Long">Long</option>
+                </select>
+            </div>
 
-                <label>Etat du catway</label>
-                <textarea name="catwayState"></textarea>
+            <div class="form-group">
+                <label for="catwayState">État du catway</label>
+                <textarea id="catwayState" name="catwayState" required></textarea>
+            </div>
 
-            <button type="submit" class="btn-add">Ajouter</button>
+            <button type="submit" class="btn-submit">Ajouter</button>
+
+        </form>
+
+        <a href="/catways/list">Retour aux catways</a>
+
+    </div>
+</div>
         </form>
     </main>
     

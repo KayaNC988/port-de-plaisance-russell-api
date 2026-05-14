@@ -23,6 +23,21 @@ router.get('/new', (req, res) => {
     res.render('new-reservation', { catwayNumber: req.params.id });
 });
 
+router.get('/:idReservation/edit', async (req, res) => {
+    try {
+    const reservation = await Reservation.findOne({
+    _id: req.params.idReservation,
+    catwayNumber: Number(req.params.id)
+});
+    if (!reservation) {
+    return res.status(404).json({ message: 'Réservation non trouvée' });
+}
+    res.render('edit-reservation', { reservation, catwayNumber: req.params.id });
+}    catch (error) {
+    res.status(500).json({ message: error.message });
+}
+});
+
 router.get('/:idReservation', async (req, res) => {
     try {
     const reservation = await Reservation.findOne({
@@ -97,12 +112,33 @@ router.put('/:idReservation', async (req, res) => {
 }
 
    const updatedReservation = await reservation.save();
-   res.json(updatedReservation);
+   res.redirect(`/catways/${req.params.id}/reservations/${updatedReservation._id}`);
 }  catch (error) {
    res.status(400).json({ message: error.message });
 }
 });
 
+router.post('/:idReservation/edit', async (req, res) => {
+    try {
+        const reservation = await Reservation.findOne({
+            _id: req.params.idReservation,
+            catwayNumber: Number(req.params.id)
+        });
+
+        if (!reservation) {
+            return res.status(404).json({ message: 'Réservation non trouvée' });
+        }
+        reservation.clientName = req.body.clientName;
+        reservation.boatName = req.body.boatName;
+        reservation.startDate = req.body.startDate;
+        reservation.endDate = req.body.endDate;
+
+        await reservation.save();
+        res.redirect(`/catways/${req.params.id}/reservations`);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
 
 router.post('/:idReservation/delete', async (req, res) => {
     try {

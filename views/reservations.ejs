@@ -25,7 +25,7 @@
                             <p><strong>Date de fin:</strong> <%= reservation.endDate.toLocaleDateString() %></p>
                         </li>
                         <div class="actions">
-                       <a href="/api/reservations/<%= reservation._id %>/edit" class="btn btn-edit">Modifier</a>
+                       <a href="/catways/<%= catwayNumber %>/reservations/<%= reservation._id %>/edit" class="btn btn-edit">Modifier</a>
 
                             <form action="/catways/<%= catwayNumber %>/reservations/<%= reservation._id %>/delete" method="POST">
                                 <button type="submit" class="btn btn-delete">Supprimer</button>

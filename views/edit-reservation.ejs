@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier la réservation</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/navbar') %>
+
+   <div class="form-container">
+    <div class="form-card">
+
+        <h1>Modifier la réservation</h1>
+
+        <form action="/catways/<%= catwayNumber %>/reservations/<%= reservation._id %>/edit" method="POST">
+
+            <div class="form-group">
+                <label for="clientName">Nom du client</label>
+                <input type="text" id="clientName" name="clientName" value="<%= reservation.clientName %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="boatName">Nom du bateau</label>
+                <input type="text" id="boatName" name="boatName" value="<%= reservation.boatName %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Date de début</label>
+                <input type="date" id="startDate" name="startDate" value="<%= reservation.startDate.toISOString().split('T')[0] %>" required>
+            </div>
+
+            <div class="form-group">
+                <label for="endDate">Date de fin</label>
+                <input type="date" id="endDate" name="endDate" value="<%= reservation.endDate.toISOString().split('T')[0] %>" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Modifier la réservation</button>
+
+        </form>
+
+        <a href="/catways/<%= catwayNumber %>/reservations" class="back-btn">Retour aux réservations</a>
+
+    </div>
+</div>
+    
+</body>
+</html>
