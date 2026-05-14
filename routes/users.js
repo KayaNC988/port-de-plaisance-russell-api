@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
 
 
 router.get('/', async (req, res) => {
@@ -32,7 +33,7 @@ router.post('/', async (req, res) => {
     const newUser = new User({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
+    password: await bcrypt.hash(req.body.password, 10)
 });
 
     const savedUser = await newUser.save();
@@ -64,7 +65,7 @@ router.put('/:email', async (req, res) => {
 }
 
     if (req.body.password !== undefined) {
-    user.password = req.body.password;
+    user.password = await bcrypt.hash(req.body.password, 10);
 }
 
     const updatedUser = await user.save();
@@ -95,4 +96,4 @@ router.delete('/:email', async (req, res) => {
 
 
 
-module.exports = router
+module.exports = router;
