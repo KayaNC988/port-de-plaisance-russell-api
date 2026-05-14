@@ -40,7 +40,7 @@ const catwaysRoutes = require('./routes/catways');
 const reservationsRoutes = require('./routes/reservations');
 const usersRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
-
+const Reservation = require('./models/Reservation');
 
 app.use('/api/reservations', reservationsRoutes);
 app.use('/catways', catwaysRoutes);
@@ -74,6 +74,11 @@ app.get('/catways-page', async (req, res) => {
         console.error(err);
         res.status(500).send('Erreur serveur');
     }
+});
+
+app.get('/reservations', async (req, res) => {
+    const reservations = await Reservation.find();
+    res.render('all-reservations', { reservations });
 });
 
 app.post('/catways/:id/delete', async (req, res) => {

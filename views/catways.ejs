@@ -34,7 +34,7 @@
                     <a href="/catways/<%= catway.catwayNumber %>/edit" class="btn-edit">Modifier</a>
                     
                         <form action="/catways/<%= catway.catwayNumber %>/delete" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?');">
-                        <button type="submit" class="btn-delete">Supprimer</button>
+                        <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce catway ?')" >Supprimer</button>
                     </form>
                 </div>
                 </form>

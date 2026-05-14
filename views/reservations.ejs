@@ -28,7 +28,7 @@
                        <a href="/catways/<%= catwayNumber %>/reservations/<%= reservation._id %>/edit" class="btn btn-edit">Modifier</a>
 
                             <form action="/catways/<%= catwayNumber %>/reservations/<%= reservation._id %>/delete" method="POST">
-                                <button type="submit" class="btn btn-delete">Supprimer</button>
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?');">Supprimer</button>
                             </form>
                         </div>
                     <% }) %>

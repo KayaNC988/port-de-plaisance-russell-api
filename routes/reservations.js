@@ -5,15 +5,15 @@ const passport = require('passport');
 
 
 
+
 router.get('/', async (req, res) => {
 
   try {
     const reservations = await Reservation.find({
      catwayNumber: Number(req.params.id)
 });
-     res.render('reservations', { reservations,
-     catwayNumber: req.params.id
-}); 
+    res.render('reservations', { reservations, catwayNumber: req.params.id });
+
 }    catch (error) {
      res.status(500).json({ message: error.message });
 }
@@ -48,7 +48,7 @@ router.get('/:idReservation', async (req, res) => {
     if (!reservation) {
     return res.status(404).json({ message: 'Réservation non trouvée' });
 }
-    res.json(reservation);
+    res.render('reservation-detail', { reservation, catwayNumber: req.params.id });
 }    catch (error) {
     res.status(500).json({ message: error.message });
 }
