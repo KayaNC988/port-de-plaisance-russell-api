@@ -3,6 +3,7 @@
 }
 
 body {
+  line-height: 1.6;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background: linear-gradient(135deg, #eef4ff, #f8fafc);
@@ -346,4 +347,47 @@ button:hover,
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.reservation-list {
+  margin-top: 30px;
+}
+
+.reservation-item {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  border-left: 5px solid #1d4ed8;
+}
+
+.reservation-item h3 {
+  color: #2563eb;
+  margin-bottom: 20px;
+}
+
+.reservation-item p {
+  margin-bottom: 10px;
+}
+
+.reservation-item .actions {
+  display: flex;
+  gap: 12px; 
+}
+
+.reservation-item .actions form {
+  margin: 0;
+}
+
+
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.actions form {
+  margin: 0;
 }

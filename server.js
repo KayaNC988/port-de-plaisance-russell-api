@@ -43,6 +43,7 @@ const authRoutes = require('./routes/auth');
 const Reservation = require('./models/Reservation');
 
 app.use('/api/reservations', reservationsRoutes);
+app.use('/reservations', reservationsRoutes);
 app.use('/catways', catwaysRoutes);
 app.use('/users', usersRoutes);
 app.use('/', authRoutes);

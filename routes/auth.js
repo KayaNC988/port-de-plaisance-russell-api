@@ -23,13 +23,12 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/logout', (req, res) => {
-  req.logout((error) => {
-    if (error) {
-    return res.status(500).json({ message: error.message });
-}
-
-    res.json({ message: 'Déconnexion réussie' });
-});
+    req.logout(function(err) {
+        if (err) {
+            return next(err);   
+        }
+        res.redirect('/');
+    });
 });
 
 router.get('/profile', (req, res) => {

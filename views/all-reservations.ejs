@@ -10,38 +10,40 @@
 <body>
     <%- include('partials/navbar') %>
 
-    <div class="form-container">
-        <div class="form-card">
-            <h1>Toutes les réservations</h1>
+   <main class="container">
+    <section class="card">
+        <h1>Toutes les réservations</h1>
 
-            <table class="reservations-table">
-                <thead>
-                    <tr>
-                        <th>Catway</th>
-                        <th>Nom du bateau</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% reservations.forEach(reservation => { %>
-                        <tr>
-                            
-                            <td><%= reservation.catwayNumber %></td>
-                            <td><%= reservation.boatName %></td>
-                            <td><%= reservation.startDate.toLocaleDateString() %></td>
-                            <td><%= reservation.endDate.toLocaleDateString() %></td>
-                            <td class="actions">
-                                <a href="/catways/<%= reservation.catwayNumber %>/reservations/<%= reservation._id %>/edit" class="btn btn-edit">Modifier</a>
+        <a href="/reservations/new" class="btn btn-add">Ajouter une réservation</a>
+        <% if (reservations.length === 0) { %>
+            <p>Aucune réservation trouvée.</p>
+        <% } else { %>
 
-                                <form action="/catways/<%= reservation.catwayNumber %>/reservations/<%= reservation._id %>/delete" method="POST" style="display:inline;">
-                                    <button type="submit" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?');">Supprimer</button>
-                                
-                                </form>
-                                <% }) %>
-                                
+        
+            <div class="reservation-list">
+                <% reservations.forEach(reservation => { %>
+                    <div class="reservation-item">
+                        <p><strong>Catway numéro:</strong> <%= reservation.catwayNumber %></p>
+                        <p><strong>Nom du bateau:</strong> <%= reservation.boatName %></p>
+                        <p><strong>Date de début:</strong> <%= reservation.startDate.toLocaleDateString() %></p>
+                        <p><strong>Date de fin:</strong> <%= reservation.endDate.toLocaleDateString() %></p>
 
+                        <div class="actions">
+                            <a href="/catways/<%= reservation.catwayNumber %>/reservations/<%= reservation._id %>/edit" class="btn btn-edit">Modifier</a>
+
+                            <form action="/catways/<%= reservation.catwayNumber %>/reservations/<%= reservation._id %>/delete" method="POST">
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?');">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }) %>
+                
+            </div>
+            <a href="/dashboard" class="back-btn">Retour au dashboard
+            </a>
+        <% } %>
+    </section>
+   </main>
     
 </body>
 </html>
