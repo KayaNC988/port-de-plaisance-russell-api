@@ -4,7 +4,12 @@ const passport = require('passport');
 const router = express.Router();
 
 router.post('/login', (req, res, next) => {
+    console.log('Tentative login :', req.body.username);
   passport.authenticate('local', (error, user, info) => {
+    console.log('ERROR:', error);
+    console.log('USER:', user); 
+    console.log('INFO:', info);
+    
     if (error) {
     return res.redirect('/');
 }
