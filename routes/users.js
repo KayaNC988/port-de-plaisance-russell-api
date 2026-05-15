@@ -49,7 +49,7 @@ router.post('/:email/edit', async (req, res) => {
 username = req.body.username;
 user.email = req.body.email;
 if (req.body.password) {
-    user.password = await bcrypt.hash(req.body.password, 10);
+    user.password = req.body.password;
 }   
     await user.save();
     res.redirect('/users/list');    
@@ -79,7 +79,7 @@ router.post('/', async (req, res) => {
     const newUser = new User({
     username: req.body.username,
     email: req.body.email,
-    password: await bcrypt.hash(req.body.password, 10)
+    password: req.body.password
 });
 
     const savedUser = await newUser.save();
@@ -111,7 +111,7 @@ router.put('/:email', async (req, res) => {
 }
 
     if (req.body.password !== undefined) {
-    user.password = await bcrypt.hash(req.body.password, 10);
+    user.password = req.body.password;
 }
 
     const updatedUser = await user.save();
