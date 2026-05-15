@@ -11,10 +11,6 @@ function initializePassport() {
     async (email, password, done) => {
     try {
         const user = await User.findOne({ email: email });
-        console.log('EMAIL RECU:', email);
-        console.log('USER TROUVE:', user ? user.email : 'Aucun utilisateur trouvé');
-        console.log('HASH EN BASE DE DONNEES:', user ? user.password : 'N/A');
-        console.log('PASSWORD RECU:', password);
     if (!user) {
     return done(null, false, { message: 'Utilisateur non trouvé' });
 }
