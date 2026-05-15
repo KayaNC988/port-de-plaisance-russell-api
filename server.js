@@ -1,5 +1,7 @@
+require('dotenv').config();
+
+
 const express = require('express');
-const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const session = require('express-session');
 const passport = require('passport');
@@ -8,9 +10,6 @@ const path = require('path');
 const methodOverride = require('method-override');
 
 
-
-
-dotenv.config();
 connectDB();
 initializePassport();
 
