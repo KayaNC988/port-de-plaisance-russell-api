@@ -18,7 +18,7 @@ function initializePassport() {
     if (!user) {
     return done(null, false, { message: 'Utilisateur non trouvé' });
 }
-        const isMatch = password === user.password;
+        const isMatch = await bcrypt.compare(password, user.password);
         console.log('MATCH :', isMatch);
         if (!isMatch) {
         return done(null, false, { message: 'Mot de passe incorrect' });
