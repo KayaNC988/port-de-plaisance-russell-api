@@ -49,9 +49,11 @@ app.use('/', authRoutes);
 
 
 
+
 app.get('/', (req, res) => {
     res.render('index');
 });
+
 
 app.get('/dashboard', (req, res) => {
     if(!req.isAuthenticated()) {
