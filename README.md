@@ -13,8 +13,11 @@ Application web de gestion des catways et des résetrvations du port de plaisanc
 - CSS
 
 ## Installation 
-
 '''bash
+npm start
+'''
+
+'''txt
 npm install
 '''
 
