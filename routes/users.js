@@ -1,17 +1,18 @@
+const { isAuthenticated } = require('../middlewares/authMiddleware');
 const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/userController');
 
-router.get('/list', userController.getUsersPage);
+router.get('/list', isAuthenticated, userController.getUsersPage);
 
 router.get('/', userController.getAllUsers);
 
-router.get('/new', userController.getNewUserForm);
+router.get('/new', isAuthenticated, userController.getNewUserForm);
 
-router.get('/:email/edit', userController.getEditUserForm);
+router.get('/:email/edit', isAuthenticated, userController.getEditUserForm);
 
-router.post('/:email/edit', userController.updateUserFromForm);
+router.post('/:email/edit', isAuthenticated, userController.updateUserFromForm);
 
 router.get('/:email', userController.getUserByEmail);
 
@@ -21,7 +22,7 @@ router.put('/:email', userController.updateUser);
 
 router.delete('/:email', userController.deleteUserApi);
 
-router.post('/:email/delete', userController.deleteUserFromForm);
+router.post('/:email/delete', isAuthenticated, userController.deleteUserFromForm);
 
 
 
